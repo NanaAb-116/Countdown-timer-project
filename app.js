@@ -26,7 +26,14 @@ const release = document.querySelector('.release');
 const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4');
 
-let futureDate = new Date(2023, 6, 6, 9, 30, 0);
+let tempDate = new Date();
+let tempYear = tempDate.getFullYear();
+let tempMonth = tempDate.getMonth();
+let tempDay = tempDate.getDate();
+
+// let futureDate = new Date(2022, 5, 9, 9, 30, 0);
+
+const futureDate = new Date(tempYear, tempMonth, tempDay + 30, 12, 30, 0);
 
 const year = futureDate.getFullYear();
 const hours = futureDate.getHours();
@@ -78,6 +85,10 @@ function getRemainingTime() {
   items.forEach(function (item, index) {
     item.innerHTML = format(values[index]);
   });
+  if (t < 0) {
+    clearInterval(countdown);
+    deadline.innerHTML = `<h4 class="released"> The game has been released</h4>`;
+  }
 }
 //countdown
 let countdown = setInterval(getRemainingTime, 1000);
